@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="org.web3j.protocol.Web3j"/>
+    <fullyQualifiedTypeName name="org.web3j.protocol.http.HttpService"/>
+    <fullyQualifiedTypeName name="org.web3j.tx.ClientTransactionManager"/>
+    <fullyQualifiedTypeName name="org.web3j.protocol.core.methods.response.TransactionReceipt"/>
+    <fullyQualifiedTypeName name="org.web3j.tx.response.PollingTransactionReceiptProcessor"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="contracts.MensajesContador"/>
+</qualifiedTypeNameHistroy>

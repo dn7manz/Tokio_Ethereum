@@ -1,0 +1,170 @@
+package contracts;
+
+import java.math.BigInteger;
+import java.util.server.RemoteCall;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.function.Function;
+
+import repositoy.org.web3j;
+import org.web3j.abi.TypeReference;
+import org.web3j.abi.datatypes.Address;
+import org.web3j.abi.datatypes.DynamicArray;
+import org.web3j.abi.datatypes.DynamicStruct;
+import org.web3j.abi.datatypes.Utf8String;
+import org.web3j.crypto.Credentials;fas
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.RemoteFunctionCall;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.tuples.generated.Tuple2;
+import org.web3j.tx.Contract;
+import org.web3j.tx.TransactionManager;
+import org.web3j.tx.gas.ContractGasProvider;
+
+/**
+ * <p>Auto generated code.
+ * <p><strong>Do not modify!</strong>
+ * <p>Please use the <a href="https://docs.web3j.io/command_line.html">web3j command line tools</a>,
+ * or the org.web3j.codegen.SolidityFunctionWrapperGenerator in the 
+ * <a href="https://github.com/web3j/web3j/tree/master/codegen">codegen module</a> to update.
+ *
+ * <p>Generated with web3j version 1.5.3.
+ */
+@SuppressWarnings("rawtypes")
+public class Contracts_MensajeriaPublica_sol_MensajeriaPublica extends Contract {
+    public static final String BINARY = "6080604052348015600e575f80fd5b5061067d8061001c5f395ff3fe608060405234801561000f575f80fd5b506004361061003f575f3560e01c806327468dcb1461004357806372fb17d81461006d578063784b07cb14610082575b5f80fd5b610056610051366004610357565b610097565b60405161006492919061039c565b60405180910390f35b61008061007b3660046103db565b610154565b005b61008a610256565b6040516100649190610486565b5f81815481106100a5575f80fd5b5f918252602090912060029091020180546001820180546001600160a01b039092169350906100d390610503565b80601f01602080910402602001604051908101604052809291908181526020018280546100ff90610503565b801561014a5780601f106101215761010080835404028352916020019161014a565b820191905f5260205f20905b81548152906001019060200180831161012d57829003601f168201915b5050505050905082565b61012c815111156101b75760405162461bcd60e51b8152602060048201526024808201527f456c206d656e73616a6520657863656465206c61206c6f6e6769747564206d6160448201526378696d6160e01b606482015260840160405180910390fd5b60408051808201909152338152602081018281525f805460018101825590805282517f290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e563600290920291820180546001600160a01b0319166001600160a01b0390921691909117815591517f290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e564909101906102509082610587565b50505050565b60605f805480602002602001604051908101604052809291908181526020015f905b8282101561034e575f848152602090819020604080518082019091526002850290910180546001600160a01b0316825260018101805492939192918401916102bf90610503565b80601f01602080910402602001604051908101604052809291908181526020018280546102eb90610503565b80156103365780601f1061030d57610100808354040283529160200191610336565b820191905f5260205f20905b81548152906001019060200180831161031957829003601f168201915b50505050508152505081526020019060010190610278565b50505050905090565b5f60208284031215610367575f80fd5b5035919050565b5f81518084528060208401602086015e5f602082860101526020601f19601f83011685010191505092915050565b6001600160a01b03831681526040602082018190525f906103bf9083018461036e565b949350505050565b634e487b7160e01b5f52604160045260245ffd5b5f602082840312156103eb575f80fd5b813567ffffffffffffffff80821115610402575f80fd5b818401915084601f830112610415575f80fd5b813581811115610427576104276103c7565b604051601f8201601f19908116603f0116810190838211818310171561044f5761044f6103c7565b81604052828152876020848701011115610467575f80fd5b826020860160208301375f928101602001929092525095945050505050565b5f60208083018184528085518083526040925060408601915060408160051b8701018488015f5b838110156104f557888303603f19018552815180516001600160a01b031684528701518784018790526104e28785018261036e565b95880195935050908601906001016104ad565b509098975050505050505050565b600181811c9082168061051757607f821691505b60208210810361053557634e487b7160e01b5f52602260045260245ffd5b50919050565b601f82111561058257805f5260205f20601f840160051c810160208510156105605750805b601f840160051c820191505b8181101561057f575f815560010161056c565b50505b505050565b815167ffffffffffffffff8111156105a1576105a16103c7565b6105b5816105af8454610503565b8461053b565b602080601f8311600181146105e8575f84156105d15750858301515b5f19600386901b1c1916600185901b17855561063f565b5f85815260208120601f198616915b82811015610616578886015182559484019460019091019084016105f7565b508582101561063357878501515f19600388901b60f8161c191681555b505060018460011b0185555b50505050505056fea2646970667358221220d48308b3fa210360d8c286674c88862b69ce8f836a6869b4a5f9483c48b36fa464736f6c63430008190033";
+
+    private static String librariesLinkedBinary;
+
+    public static final String FUNC_ESCRIBIRMENSAJES = "escribirMensajes";
+
+    public static final String FUNC_LEERMENSAJES = "leerMensajes";
+
+    public static final String FUNC_MENSAJES = "mensajes";
+
+    @Deprecated
+    protected Contracts_MensajeriaPublica_sol_MensajeriaPublica(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
+        super(BINARY, contractAddress, web3j, credentials, gasPrice, gasLimit);
+    }
+
+    protected Contracts_MensajeriaPublica_sol_MensajeriaPublica(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
+        super(BINARY, contractAddress, web3j, credentials, contractGasProvider);
+    }
+
+    @Deprecated
+    protected Contracts_MensajeriaPublica_sol_MensajeriaPublica(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
+        super(BINARY, contractAddress, web3j, transactionManager, gasPrice, gasLimit);
+    }
+
+    protected Contracts_MensajeriaPublica_sol_MensajeriaPublica(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
+        super(BINARY, contractAddress, web3j, transactionManager, contractGasProvider);
+    }
+
+    public RemoteFunctionCall<TransactionReceipt> escribirMensajes(String _contenido) {
+        final Function function = new Function(
+                FUNC_ESCRIBIRMENSAJES, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Utf8String(_contenido)), 
+                Collections.<TypeReference<?>>emptyList());
+        return executeRemoteCallTransaction(function);
+    }
+
+    public RemoteFunctionCall<List> leerMensajes() {
+        final Function function = new Function(FUNC_LEERMENSAJES, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<DynamicArray<Mensaje>>() {}));
+        return new RemoteFunctionCall<List>(function,
+                new Callable<List>() {
+                    @Override
+                    @SuppressWarnings("unchecked")
+                    public List call() throws Exception {
+                        List<Type> result = (List<Type>) executeCallSingleValueReturn(function, List.class);
+                        return convertToNative(result);
+                    }
+                });
+    }
+
+    public RemoteFunctionCall<Tuple2<String, String>> mensajes(BigInteger param0) {
+        final Function function = new Function(FUNC_MENSAJES, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(param0)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}, new TypeReference<Utf8String>() {}));
+        return new RemoteFunctionCall<Tuple2<String, String>>(function,
+                new Callable<Tuple2<String, String>>() {
+                    @Override
+                    public Tuple2<String, String> call() throws Exception {
+                        List<Type> results = executeCallMultipleValueReturn(function);
+                        return new Tuple2<String, String>(
+                                (String) results.get(0).getValue(), 
+                                (String) results.get(1).getValue());
+                    }
+                });
+    }
+
+    @Deprecated
+    public static Contracts_MensajeriaPublica_sol_MensajeriaPublica load(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
+        return new Contracts_MensajeriaPublica_sol_MensajeriaPublica(contractAddress, web3j, credentials, gasPrice, gasLimit);
+    }
+
+    @Deprecated
+    public static Contracts_MensajeriaPublica_sol_MensajeriaPublica load(String contractAddress, Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
+        return new Contracts_MensajeriaPublica_sol_MensajeriaPublica(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
+    }
+
+    public static Contracts_MensajeriaPublica_sol_MensajeriaPublica load(String contractAddress, Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
+        return new Contracts_MensajeriaPublica_sol_MensajeriaPublica(contractAddress, web3j, credentials, contractGasProvider);
+    }
+
+    public static Contracts_MensajeriaPublica_sol_MensajeriaPublica load(String contractAddress, Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
+        return new Contracts_MensajeriaPublica_sol_MensajeriaPublica(contractAddress, web3j, transactionManager, contractGasProvider);
+    }
+
+    public static RemoteCall<Contracts_MensajeriaPublica_sol_MensajeriaPublica> deploy(Web3j web3j, Credentials credentials, ContractGasProvider contractGasProvider) {
+        return deployRemoteCall(Contracts_MensajeriaPublica_sol_MensajeriaPublica.class, web3j, credentials, contractGasProvider, getDeploymentBinary(), "");
+    }
+
+    @Deprecated
+    public static RemoteCall<Contracts_MensajeriaPublica_sol_MensajeriaPublica> deploy(Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
+        return deployRemoteCall(Contracts_MensajeriaPublica_sol_MensajeriaPublica.class, web3j, credentials, gasPrice, gasLimit, getDeploymentBinary(), "");
+    }
+
+    public static RemoteCall<Contracts_MensajeriaPublica_sol_MensajeriaPublica> deploy(Web3j web3j, TransactionManager transactionManager, ContractGasProvider contractGasProvider) {
+        return deployRemoteCall(Contracts_MensajeriaPublica_sol_MensajeriaPublica.class, web3j, transactionManager, contractGasProvider, getDeploymentBinary(), "");
+    }
+
+    @Deprecated
+    public static RemoteCall<Contracts_MensajeriaPublica_sol_MensajeriaPublica> deploy(Web3j web3j, TransactionManager transactionManager, BigInteger gasPrice, BigInteger gasLimit) {
+        return deployRemoteCall(Contracts_MensajeriaPublica_sol_MensajeriaPublica.class, web3j, transactionManager, gasPrice, gasLimit, getDeploymentBinary(), "");
+    }
+
+    public static void linkLibraries(List<Contract.LinkReference> references) {
+        librariesLinkedBinary = linkBinaryWithReferences(BINARY, references);
+    }
+
+    public static String getDeploymentBinary() {
+        if (librariesLinkedBinary != null) {
+            return librariesLinkedBinary;
+        } else {
+            return BINARY;
+        }
+    }
+
+    public static class Mensaje extends DynamicStruct {
+        public String autor;
+
+        public String contenido;
+
+        public Mensaje(String autor, String contenido) {
+            super(new org.web3j.abi.datatypes.Address(160, autor), 
+                    new org.web3j.abi.datatypes.Utf8String(contenido));
+            this.autor = autor;
+            this.contenido = contenido;
+        }
+
+        public Mensaje(Address autor, Utf8String contenido) {
+            super(autor, contenido);
+            this.autor = autor.getValue();
+            this.contenido = contenido.getValue();
+        }
+    }
+}

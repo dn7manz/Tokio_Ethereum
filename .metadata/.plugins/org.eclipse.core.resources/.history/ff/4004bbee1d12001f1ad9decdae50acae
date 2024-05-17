@@ -1,0 +1,100 @@
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.ClientTransactionManager;
+import org.web3j.tx.ManagedTransaction;
+import org.web3j.tx.TransactionManager;
+import org.web3j.tx.gas.DefaultGasProvider;
+import org.web3j.tx.response.PollingTransactionReceiptProcessor;
+import org.web3j.tx.response.TransactionReceiptProcessor;
+
+import java.math.BigInteger;
+import java.util.List;
+import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
+import contracts.Contracts_MensajeriaPublica_sol_MensajeriaPublica;
+import contracts.MensajesContador;
+
+
+public class Main {                                                     
+
+	private static final String direccion_contrato = "0xb686b3f28b9abd2a154f0acab321f43cdcb62e38";
+	private static final String direccion_contrato2 = "0x0a0643a2bc53dd31d99f33dc11661d6645328e06";
+    private static final String clave_privada = "0x658bbcce35764a59edfdb5556a71d1ead561cc934a770f2b684c90f1d0842135";
+    private static final String direccion_wallet = "0xFc699F7d1fd4105ffee0fD792F06f18ea5150DBe";
+
+    public static void main(String[] args) {
+    	
+    	//Conexion con nodo Ethereum (Ganache)s
+        Web3j web3j = Web3j.build(new HttpService("http://localhost:7545"));
+        
+        //Creacion objeto ClientTransactionManager, sirve para gestionar las transacciones desde una cuneta de ETH,
+        TransactionManager transactionManager = new ClientTransactionManager(
+                web3j, direccion_wallet, new PollingTransactionReceiptProcessor(
+                web3j, TransactionManager.DEFAULT_POLLING_FREQUENCY, TransactionManager.DEFAULT_POLLING_ATTEMPTS_PER_TX_HASH));
+
+      
+        
+        
+        // Carga del contrato inteligente existente
+        Contracts_MensajeriaPublica_sol_MensajeriaPublica contrato = Contracts_MensajeriaPublica_sol_MensajeriaPublica.load(
+        		direccion_contrato, web3j, transactionManager, new DefaultGasProvider());
+        // Carga del contrato inteligente existente
+        MensajesContador contrato2 = MensajesContador.load(
+        		direccion_contrato2, web3j, transactionManager, new DefaultGasProvider());
+        
+
+ 
+        // Escribir mensajes
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.print("Ingrese un mensaje ('0' para salir): ");
+            String mensaje = scanner.nextLine();
+
+            if (mensaje.equals("0")) {
+            	System.out.println("Saliendo del bucle de escritura de mensajes...");
+                break;
+            }
+
+            try {
+                TransactionReceipt receipt = contrato.escribirMensajes(mensaje).send();
+                String hashExitoso = receipt.getTransactionHash();
+                System.out.println("Transacción exitosa. Hash: " + hashExitoso);
+                
+                contrato2.anclarMensaje().send();
+                
+            } catch (Exception e) {
+                System.err.println("Error al escribir el mensaje: " + e.getMessage());
+            }
+        }
+
+        // Leer todos los mensajes almacenados en el contrato
+        try {
+            List<Contracts_MensajeriaPublica_sol_MensajeriaPublica.Mensaje> mensajes = contrato.leerMensajes().send();
+            System.out.println("\nMensajes almacenados en el contrato:");
+            for (Contracts_MensajeriaPublica_sol_MensajeriaPublica.Mensaje m : mensajes) {
+                System.out.println("Autor: " + m.autor +", Contenido: " + m.contenido);
+            }
+            BigInteger contador = contrato2.contador().send();
+            System.out.println("Contador de mensajes anclados: " + contador);
+        } catch (Exception e) {
+            System.err.println("Error al leer los mensajes: " + e.getMessage());
+        }
+
+        scanner.close();
+    }  
+}
+    
+    // Ejemplo de realización de una transacción
+        /*try {
+            String transactionHash = transactionManager.sendTransaction(
+                    DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT,
+                    direccion_contrato, "", BigInteger.valueOf(0)).getTransactionHash();
+
+            System.out.println("Transacción enviada. Hash: " + transactionHash);
+
+        } catch (Exception e) {
+            System.err.println("Error al realizar la transacción: " + e.getMessage());
+        }
+        */
+

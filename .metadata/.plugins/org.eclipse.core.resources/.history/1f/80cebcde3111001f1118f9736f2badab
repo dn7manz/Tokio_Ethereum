@@ -1,0 +1,108 @@
+{
+	"compiler": {
+		"version": "0.8.25+commit.b61c2a91"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_contenido",
+						"type": "string"
+					}
+				],
+				"name": "escribirMensajes",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "leerMensajes",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "autor",
+								"type": "address"
+							},
+							{
+								"internalType": "string",
+								"name": "contenido",
+								"type": "string"
+							}
+						],
+						"internalType": "struct MensajeriaPublica.Mensaje[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "mensajes",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "autor",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "contenido",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"src/contracts/MensajeriaPublica.sol": "MensajeriaPublica"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"src/contracts/MensajeriaPublica.sol": {
+			"keccak256": "0x857180f41c01d333aba465b933505f8be17db2ac1b89839dbe7237ce3baa2341",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://dd6bdbfbf71e5101867268bea8045cac5dd71a737917a6e86e5e7c47fe0b20aa",
+				"dweb:/ipfs/QmbGioBjZsyzEcG4Bm1vZP3fBkQ9bniQw1cBVpZJLQZz8S"
+			]
+		}
+	},
+	"version": 1
+}

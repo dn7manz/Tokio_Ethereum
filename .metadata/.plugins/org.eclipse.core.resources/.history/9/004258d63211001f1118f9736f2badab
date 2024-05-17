@@ -1,0 +1,51 @@
+package main;
+import org.web3j.tx.ManagedTransaction;
+import org.web3j.tx.TransactionManager;
+import org.web3j.tx.gas.DefaultGasProvider;
+
+import java.math.BigInteger;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import contracts.Contracts_MensajeriaPublica_sol_MensajeriaPublica;
+
+
+public class Main {
+
+    // Dirección del contrato inteligente desplegado en tu red local
+    private static final String CONTRACT_ADDRESS = "0xb686b3f28b9abd2a154f0acab321f43cdcb62e38";
+
+    public static void main(String[] args) {
+        // Conexión a tu nodo local de Ethereum (Ganache)
+        Web3j web3j = Web3j.build(new HttpService("http://localhost:7545")); // Actualiza el puerto según tu configuración
+
+        // Credenciales del propietario de la cuenta que desplegó el contrato (de Ganache por ejemplo)
+        // Reemplaza con tus propias credenciales
+        String privateKey = "0x658bbcce35764a59edfdb5556a71d1ead561cc934a770f2b684c90f1d0842135";
+        TransactionManager transactionManager = new ClientTransactionManager(
+                web3j, "0xFc699F7d1fd4105ffee0fD792F06f18ea5150DBe", List.of());
+
+        // Carga del contrato inteligente existente
+        Contracts_MensajeriaPublica_sol_MensajeriaPublica contrato = Contracts_MensajeriaPublica_sol_MensajeriaPublica.load(
+                CONTRACT_ADDRESS, web3j, transactionManager, new DefaultGasProvider());
+
+        // Ejemplo: Escribir un mensaje
+        String mensaje = "Hola desde Java!";
+        try {
+            TransactionReceipt receipt = contrato.escribirMensajes(mensaje).send();
+            System.out.println("Transacción exitosa. Hash: " + receipt.getTransactionHash());
+        } catch (Exception e) {
+            System.err.println("Error al escribir el mensaje: " + e.getMessage());
+        }
+
+        // Ejemplo: Leer todos los mensajes
+        try {
+            List<Contracts_MensajeriaPublica_sol_MensajeriaPublica.Mensaje> mensajes = contrato.leerMensajes().send();
+            System.out.println("Mensajes leídos:");
+            for (Contracts_MensajeriaPublica_sol_MensajeriaPublica.Mensaje m : mensajes) {
+                System.out.println("Autor: " + m.autor + ", Contenido: " + m.contenido);
+            }
+        } catch (Exception e) {
+            System.err.println("Error al leer los mensajes: " + e.getMessage());
+        }
+    }
+}

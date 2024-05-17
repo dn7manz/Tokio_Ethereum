@@ -1,0 +1,67 @@
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.ClientTransactionManager;
+import org.web3j.tx.ManagedTransaction;
+import org.web3j.tx.TransactionManager;
+import org.web3j.tx.gas.DefaultGasProvider;
+import org.web3j.tx.response.PollingTransactionReceiptProcessor;
+import org.web3j.tx.response.TransactionReceiptProcessor;
+
+import java.math.BigInteger;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import contracts.Contracts_MensajeriaPublica_sol_MensajeriaPublica;
+
+
+public class Main {
+
+	private static final String CONTRACT_ADDRESS = "0xb686b3f28b9abd2a154f0acab321f43cdcb62e38";
+    private static final String PRIVATE_KEY = "0x658bbcce35764a59edfdb5556a71d1ead561cc934a770f2b684c90f1d0842135";
+    private static final String ACCOUNT_ADDRESS = "0xFc699F7d1fd4105ffee0fD792F06f18ea5150DBe";
+
+    public static void main(String[] args) {
+        Web3j web3j = Web3j.build(new HttpService("http://localhost:7545"));
+
+        TransactionManager transactionManager = new ClientTransactionManager(
+                web3j, ACCOUNT_ADDRESS, new PollingTransactionReceiptProcessor(
+                web3j, TransactionManager.DEFAULT_POLLING_FREQUENCY, TransactionManager.DEFAULT_POLLING_ATTEMPTS_PER_TX_HASH));
+
+        // Ejemplo de realización de una transacción
+        try {
+            // Ejemplo de envío de una transacción (requiere el uso de la clave privada)
+            String transactionHash = transactionManager.sendTransaction(
+                    DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT,
+                    CONTRACT_ADDRESS, "", BigInteger.valueOf(0)).getTransactionHash();
+
+            System.out.println("Transacción enviada. Hash: " + transactionHash);
+
+        } catch (Exception e) {
+            System.err.println("Error al realizar la transacción: " + e.getMessage());
+        }
+
+        // Carga del contrato inteligente existente
+        Contracts_MensajeriaPublica_sol_MensajeriaPublica contrato = Contracts_MensajeriaPublica_sol_MensajeriaPublica.load(
+                CONTRACT_ADDRESS, web3j, transactionManager, new DefaultGasProvider());
+
+        // Ejemplo: Escribir un mensaje
+        String mensaje = "Hola desde Java!";
+        try {
+            TransactionReceipt receipt = contrato.escribirMensajes(mensaje).send();
+            System.out.println("Transacción exitosa. Hash: " + receipt.getTransactionHash());
+        } catch (Exception e) {
+            System.err.println("Error al escribir el mensaje: " + e.getMessage());
+        }
+
+        // Ejemplo: Leer todos los mensajes
+        try {
+            List<Contracts_MensajeriaPublica_sol_MensajeriaPublica.Mensaje> mensajes = contrato.leerMensajes().send();
+            System.out.println("Mensajes leídos:");
+            for (Contracts_MensajeriaPublica_sol_MensajeriaPublica.Mensaje m : mensajes) {
+                System.out.println("Autor: " + m.autor + ", Contenido: " + m.contenido);
+            }
+        } catch (Exception e) {
+            System.err.println("Error al leer los mensajes: " + e.getMessage());
+        }
+    }
+}
