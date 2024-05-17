@@ -86,16 +86,3 @@ public class Main {
     }  
 }
     
-    // Ejemplo de realización de una transacción
-        /*try {
-            String transactionHash = transactionManager.sendTransaction(
-                    DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT,
-                    direccion_contrato, "", BigInteger.valueOf(0)).getTransactionHash();
-
-            System.out.println("Transacción enviada. Hash: " + transactionHash);
-
-        } catch (Exception e) {
-            System.err.println("Error al realizar la transacción: " + e.getMessage());
-        }
-        */
-
