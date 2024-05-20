@@ -199,7 +199,7 @@ private static final String direccion_contrato2 = "0x0a0643a2bc53dd31d99f33dc116
         } 
  ```
 
-### Para finalizar añado evidencias desde Eclipse que la nueva funcion del nuevo ocntrato funciona.
+### Para finalizar añado evidencias desde Eclipse que la nueva funcion del nuevo contrato funciona. Se mostrara por consola el contador. psdt: la consola mostrara que ha contado mas mensajes de los mostrados por que previamente he realiado pruebas.
 
 ![image](https://github.com/dn7manz/web3test/assets/153960298/93b1cf5a-e7d7-41a9-ab57-5c281bd6c677)
 ![image](https://github.com/dn7manz/web3test/assets/153960298/1fd079cf-a864-4f94-b73d-befc9d0584fe)
